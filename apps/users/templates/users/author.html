@@ -1,0 +1,34 @@
+{% extends "./layout.html" %}
+{% block body %}
+    <div class="container">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <h3>Add a New Book Title and a Review</h3>
+        <form action="{% url 'user:author_creating' %}" method="post">
+            {% csrf_token %}
+            Book Title: <input type="text" name="book_title">
+            <p>Author</p>
+            <p>Choose from the list <select name="author_select">
+                                    <option value="">Choose</option>
+                                    {% for authors in authors %}
+                                        <option value="{{ authors.id }}">{{ authors.name }}</option>
+                                    {% endfor %}
+                                </select></p>
+            <p>Or add a new author  <input type="text" name="author"></p>
+            <p>Review</p>  <textarea name="review" cols="80" rows="60"></textarea>
+            <p>Rating  <select name="rating">
+                            <option value="">0</option>
+                            {% for i in n %}
+                                <option value="{{ i }}">{{ i }}</option>
+                            {% endfor %}
+                        </select></p>
+            <input type="submit" value="Add Book and Review">
+        </form>
+    </div>
+{% endblock %}
+

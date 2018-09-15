@@ -1,0 +1,12 @@
+{% extends "./layout.html" %}
+{% block body %}
+    <div class="container">
+        <p>{{ user.name }}</p>
+        <form action="{% url 'user:logout' %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Logout">
+        </form>
+        <a href="{% url 'user:author' %}">Add Book and Review</a>
+    </div>
+{% endblock %}
+

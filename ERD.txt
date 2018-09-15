@@ -1,0 +1,23 @@
+User:
+	name
+	alias
+	email
+	password
+	created_at
+	updated_at
+Book
+	title
+	author_id
+	created_at
+	updated_at
+Author
+	name
+	created_at
+	updated_at
+Review
+	user_id
+	book_id
+	content
+	rating
+	created_at
+	updated_at

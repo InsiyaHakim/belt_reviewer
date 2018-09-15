@@ -1,0 +1,41 @@
+{% extends "./layout.html" %}
+{% block body %}
+    <div class="container">
+        <div class="form-container">
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <h3>Register</h3>
+            <form action="{% url 'user:creating_user' %}" method="POST">
+                {% csrf_token %}
+                <label for="name">Name</label>
+                <input type="text" name="name">
+                <label for="alias">Alias</label>
+                <input type="text" name="alias">
+                <label for="email">Email</label>
+                <input type="text" name="email">
+                <label for="password">Password</label>
+                <input type="password" name="password">
+                <label for="confirm">Confirm Password</label>
+                <input type="password" name="confirm">
+                <input type="submit" value="Register">
+            </form>
+        </div>
+        <div class="form-container">
+            <h3>Login</h3>
+            <form action="{% url 'user:login' %}" method="POST">
+                {% csrf_token %}
+                <label for="email">Email</label>
+                <input type="text" name="email">
+                <label for="password">Password</label>
+                <input type="password" name="password">
+                <input type="submit" value="Login">
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
