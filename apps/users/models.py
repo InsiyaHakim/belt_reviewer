@@ -107,22 +107,19 @@ class UserManager(models.Manager):
             else:
                 author=Authors.object.create(name=author_name.capitalize())
                 author_id=author.id
-                Books.object.create(title=book_title, user_id=user_id, author_id=author_id)
+                book=Book.object.create(title=book_title, user_id=user_id, author_id=author.id)
                 return True
         else:
             author = Authors.object.filter(id=author_select)
             if len(author)>0:
                 author_id=author[0]
-            books.object.create(title=book_title,user_id=user_id,author_id=author_id.id)
+            book=Book.object.create(title=book_title,user_id=user_id,author_id=author_id.id)
             return True
 
 
     def selecting_all_authors(self):
         authors=Authors.object.all()
         return authors
-
-
-
 
 
 class User(models.Model):

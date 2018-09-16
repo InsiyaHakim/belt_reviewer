@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render,redirect,HttpResponse
 from .models import *
 from ..authors.models import *
+from ..books.models import *
 from django.contrib import messages
 
 # Create your views here.
@@ -78,14 +79,15 @@ def author(request):
 
 def author_creating(request):
     if request.method == "POST":
-        user_id = request.session['user_id']
-        error=User.object.author_creating(request.POST,user_id)
-        if type(error)== list:
-            for err in error:
-                messages.error(request, err)
-            return redirect("user:author")
-        else:
-            print error
-            return redirect("user:author")
+        if "user_id" in request.session:
+            user_id = request.session['user_id']
+            error=User.object.author_creating(request.POST,int(user_id))
+            if type(error)== list:
+                for err in error:
+                    messages.error(request, err)
+                return redirect("user:author")
+            else:
+                print error
+                return redirect("user:author")
     else:
         return redirect("user:index")
